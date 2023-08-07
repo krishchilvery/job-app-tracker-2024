@@ -4,9 +4,13 @@ import { Timestamp, getFirestore } from 'firebase-admin/firestore'
 import GithubSlugger from 'github-slugger';
 import { marked } from 'marked';
 import { parse, isValid } from 'date-fns';
-import serviceAccount from "./firebase-sa.json" assert { type: "json" };
 
-console.log(serviceAccount)
+let serviceAccount;
+if (process.env.FIREBASE_SA) {
+    serviceAccount = JSON.parse(process.env.FIREBASE_SA)
+} else {
+    throw new Error('Secrets not found.')
+}
 
 initializeApp({
     credential: cert(serviceAccount)
