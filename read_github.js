@@ -72,7 +72,7 @@ const parseDatePosted = (cell) => {
     const dateStr = cell.text.trim();
     const date = parse(dateStr, "MM/dd/yyyy", new Date());
     if (isValid(date)) return Timestamp.fromDate(date);
-    return null;
+    return Timestamp.now();
 }
 
 const parseTableRow = (rowData) => {
@@ -110,5 +110,4 @@ const parseData = (dataStr) => {
     const parsedData = marked.parse(
         dataStr.replace(/^[\u200B\u200C\u200D\u200E\u200F\uFEFF]/, "")
     );
-    console.log(data[2])
 }
