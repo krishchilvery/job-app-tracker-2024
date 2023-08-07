@@ -1,0 +1,34 @@
+name: Fetch Job Roles
+run-name: ${{ github.actor }} is fetching job roles 🚀.
+on:
+    workflow_dispatch:
+permissions:
+    contents: read
+concurrency:
+    group: '${{ github.workflow }}'
+    cancel-in-progress: true
+jobs:
+    fetch-data:
+        environment: GITHUB_EXTRACTION
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node-version: [20.x]
+        steps:
+            - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+            - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+            - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+            - name: Check out repository code
+              uses: actions/checkout@v3
+            - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v3
+              with:
+                node-version: ${{ matrix.node-version }}
+                cache: npm
+            - run: echo "🖥️ The workflow is now ready to run fetch scripts."
+            - name: Fetch Job Roles
+              run: node read_github.js
+              env:
+                FIREBASE_SA: ${{ secrets.FIREBASE_SA }}
+            - run: echo "Jobs Updated 🎉"
