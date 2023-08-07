@@ -12,6 +12,8 @@ if (process.env.FIREBASE_SA) {
     throw new Error('Secrets not found.')
 }
 
+console.log(serviceAccount)
+
 initializeApp({
     credential: cert(serviceAccount)
 })
