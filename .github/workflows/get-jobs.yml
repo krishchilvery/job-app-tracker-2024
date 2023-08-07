@@ -26,6 +26,8 @@ jobs:
               with:
                 node-version: ${{ matrix.node-version }}
                 cache: npm
+            - name: Install dependencies
+              uses: npm install
             - run: echo "🖥️ The workflow is now ready to run fetch scripts."
             - name: Fetch Job Roles
               run: node read_github.js
