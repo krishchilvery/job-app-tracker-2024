@@ -2,6 +2,8 @@ name: Fetch Job Roles
 run-name: ${{ github.actor }} is fetching job roles 🚀.
 on:
     workflow_dispatch:
+    schedule:
+        - cron: '0 */6 * * *'
 permissions:
     contents: read
 concurrency:
