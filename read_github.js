@@ -4,13 +4,13 @@ import { Timestamp, getFirestore } from 'firebase-admin/firestore'
 import GithubSlugger from 'github-slugger';
 import { marked } from 'marked';
 import { parse, isValid } from 'date-fns';
-import serviceAccount from './firebase-sa.json' assert {type: "json"};
 
+let serviceAccount = ""
 if (process.env.FIREBASE_SA) {
     serviceAccount = JSON.parse(process.env.FIREBASE_SA)
-    console.log(serviceAccount.type)
+} else {
+    throw Error("Secrets not found")
 }
-
 initializeApp({
     credential: cert(serviceAccount)
 })
@@ -89,7 +89,6 @@ const parseTableRow = (rowData) => {
     return companyData
 }
 
-let data = []
 
 marked.use({
     mangle: false,
@@ -101,7 +100,6 @@ marked.use({
                 const parsedData = parseTableRow(rowData)
                 if (parsedData) {
                     updateDb(parsedData)
-                    data.push(parsedData)
                 }
             })
             return false;
@@ -110,7 +108,7 @@ marked.use({
 })
 
 const parseData = (dataStr) => {
-    const parsedData = marked.parse(
+    marked.parse(
         dataStr.replace(/^[\u200B\u200C\u200D\u200E\u200F\uFEFF]/, "")
     );
 }
