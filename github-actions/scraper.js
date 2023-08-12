@@ -13,7 +13,7 @@ if (process.env.FIREBASE_SA && process.env.CLEARBIT_SA) {
 } else {
     throw Error("Secrets not found")
 }
-const firebaseClient = FirebaseClient(serviceAccount, clearbitClient);
+const firebaseClient = FirebaseClient(serviceAccount, clearbitToken);
 
 const slugger = new GithubSlugger();
 
