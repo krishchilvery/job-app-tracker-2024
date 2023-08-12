@@ -7,12 +7,12 @@ import FirebaseClient from './firebase-client.mjs';
 
 let serviceAccount = ""
 let clearbitToken = ""
-// if (process.env.FIREBASE_SA && process.env.CLEARBIT_SA) {
-//     serviceAccount = JSON.parse(process.env.FIREBASE_SA)
-//     clearbitToken = process.env.CLEARBIT_SA
-// } else {
-//     throw Error("Secrets not found")
-// }
+if (process.env.FIREBASE_SA && process.env.CLEARBIT_SA) {
+    serviceAccount = JSON.parse(process.env.FIREBASE_SA)
+    clearbitToken = process.env.CLEARBIT_SA
+} else {
+    throw Error("Secrets not found")
+}
 let firebaseClient = new FirebaseClient(serviceAccount, clearbitToken);
 
 let slugger = new GithubSlugger();
