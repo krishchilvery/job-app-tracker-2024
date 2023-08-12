@@ -72,7 +72,7 @@ const parseTableRow = async (rowData) => {
     const companyId = firebaseClient.updateCompanyData(companyData)
     const dateExtracted = parseDatePosted(rowData[4])
     const roles = parseRoles(rowData[2], companyData.id)
-    if (companyData.roles.length === 0) return false
+    if (roles.length === 0) return false
     roles.forEach((roleData) => {
         roleData.companyId = companyId
         roleData.dateExtracted = dateExtracted
