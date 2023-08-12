@@ -14,7 +14,7 @@ export default class FirebaseClient {
     }
 
     updateCompanyData = async (companyData) => {
-        const docRef = collection(this.firestore, "companies").doc(companyData.id)
+        const docRef = this.firestore.collection("companies").doc(companyData.id)
         const doc = await docRef.get()
         if(!doc.exists()){
             const clearbitData = this.clearbitClient.getCompanyInfo();
@@ -34,7 +34,7 @@ export default class FirebaseClient {
     }
 
     updateCompanyRoleData = async (roleData) => {
-        const docRef = collection(this.firestore, "roles").doc(roleData.id)
+        const docRef = this.firestore.collection("roles").doc(roleData.id)
         const doc = await docRef.get()
         if(doc.exists()){
             const compareResult = _.isEqual(
