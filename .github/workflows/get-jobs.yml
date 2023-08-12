@@ -28,11 +28,12 @@ jobs:
               with:
                 node-version: ${{ matrix.node-version }}
                 cache: npm
+            - run: cd github-actions
             - name: Install dependencies
               run: npm install
             - run: echo "🖥️ The workflow is now ready to run fetch scripts."
             - name: Fetch Job Roles
-              run: node read_github.js
+              run: npm run scrape
               env:
                 FIREBASE_SA: ${{ secrets.FIREBASE_SA }}
             - run: echo "Jobs Updated 🎉"

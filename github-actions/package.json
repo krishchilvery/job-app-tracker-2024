@@ -4,6 +4,7 @@
   "type": "module",
   "description": "Actions for Scraping Job Roles from https://github.com/ReaVNaiL/New-Grad-2024",
   "scripts": {
+    "scrape": "node scraper.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
