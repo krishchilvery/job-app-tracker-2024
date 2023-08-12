@@ -6,6 +6,7 @@ import { parse, isValid } from 'date-fns';
 import FirebaseClient from './firebase-client.mjs';
 
 let serviceAccount = ""
+let clearbitToken = ""
 if (process.env.FIREBASE_SA && process.env.CLEARBIT_SA) {
     serviceAccount = JSON.parse(process.env.FIREBASE_SA)
     clearbitToken = process.env.CLEARBIT_SA
