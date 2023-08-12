@@ -30,7 +30,7 @@ jobs:
                 cache: npm
             - name: Exporting Secrets
               run: |
-                sudo apt-get install -y realpath
+                sudo apt-get install -y coreutils
                 echo ${{ secrets.FIREBASE_SA }} >> firebase-sa.json
                 export GOOGLE_APPLICATION_CREDENTIALS=$(realpath ./firebase-sa.json)
             - name: Install dependencies
