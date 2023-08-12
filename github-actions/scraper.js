@@ -88,10 +88,7 @@ marked.use({
         name: 'table',
         renderer(token) {
             token.rows.forEach((rowData) => {
-                const parsedData = parseTableRow(rowData)
-                if (parsedData) {
-                    updateDb(parsedData)
-                }
+                parseTableRow(rowData)
             })
             return false;
         }
