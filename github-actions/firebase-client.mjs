@@ -11,12 +11,9 @@ export default class FirebaseClient {
             credential: applicationDefault()
         })
         this.firestore = getFirestore();
-        this.getCompany.bind(this)
-        this.getCompanyData.bind(this)
-        this.updateCompanyData.bind(this)
     }
 
-    async updateCompanyData(companyData){
+    updateCompanyData = async (companyData) => {
         const docRef = db.collection("companies").doc(companyData.id)
         const doc = await docRef.get()
         if(!doc.exists()){
@@ -36,7 +33,7 @@ export default class FirebaseClient {
         return companyData.id;
     }
 
-    async updateCompanyRoleData(roleData) {
+    updateCompanyRoleData = async (roleData) => {
         const docRef = db.collection("roles").doc(roleData.id)
         const doc = await docRef.get()
         if(doc.exists()){

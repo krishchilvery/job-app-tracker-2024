@@ -12,11 +12,10 @@ export default class ClearbitClient {
             validateStatus: function (status) {
                 return status == 200;
             }
-        }) 
-        this.getCompanyInfo.bind(this)
+        })
     }
 
-    async getCompanyInfo(name){
+    getCompanyInfo = async (name) => {
         return await this.apiClient.get(
             '/find', {
                 params: {
