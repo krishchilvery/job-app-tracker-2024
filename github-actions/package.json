@@ -12,7 +12,7 @@
     "date-fns": "^2.30.0",
     "firebase-admin": "^11.10.1",
     "github-slugger": "^2.0.0",
-    "loadash": "^1.0.0",
+    "lodash": "^4.17.21",
     "marked": "^7.0.2"
   }
 }

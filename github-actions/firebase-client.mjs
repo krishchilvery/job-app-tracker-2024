@@ -1,12 +1,12 @@
-import { initializeApp } from "firebase-admin"
-import ClearbitClient from "./clearbit-client"
-import _ from "loadash"
+import admin from "firebase-admin"
+import ClearbitClient from "./clearbit-client.mjs"
+import _ from "lodash"
 
 export default class FirebaseClient {
  
     constructor(serviceAccount, clearbitSecret) {
         this.clearbitClient = ClearbitClient(clearbitSecret);
-        this.firebaseApp = initializeApp({
+        this.firebaseApp = admin.initializeApp({
             credential: cert(serviceAccount)
         })
         this.firestore = this.firebaseApp.firestore();

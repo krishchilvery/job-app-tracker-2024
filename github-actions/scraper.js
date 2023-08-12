@@ -1,11 +1,9 @@
 import axios from 'axios';
-import { initializeApp, cert } from 'firebase-admin/app';
-import { Timestamp, getFirestore } from 'firebase-admin/firestore'
+import { Timestamp } from 'firebase-admin/firestore'
 import GithubSlugger from 'github-slugger';
 import { marked } from 'marked';
 import { parse, isValid } from 'date-fns';
-import ClearbitClient from './clearbit-client'
-import FirebaseClient from './firebase-client';
+import FirebaseClient from './firebase-client.mjs';
 
 let serviceAccount = ""
 if (process.env.FIREBASE_SA && process.env.CLEARBIT_SA) {
