@@ -28,6 +28,10 @@ jobs:
               with:
                 node-version: ${{ matrix.node-version }}
                 cache: npm
+            - name: Exporting Secrets
+              run: |
+                  echo ${{ secrets.FIREBASE_SA }} >> firebase-sa.json
+                  export GOOGLE_APPLICATION_CREDENTIALS=$(realpath ./firebase-sa.json)
             - name: Install dependencies
               working-directory: ./github-actions
               run: npm install
