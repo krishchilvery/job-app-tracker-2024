@@ -8,7 +8,7 @@ import FirebaseClient from './firebase-client.mjs';
 let serviceAccount = ""
 if (process.env.FIREBASE_SA && process.env.CLEARBIT_SA) {
     serviceAccount = JSON.parse(process.env.FIREBASE_SA)
-    clearbitToken = JSON.parse(process.env.CLEARBIT_SA)
+    clearbitToken = process.env.CLEARBIT_SA
 } else {
     throw Error("Secrets not found")
 }
