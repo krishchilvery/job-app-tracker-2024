@@ -32,8 +32,7 @@ jobs:
               run: |
                 sudo apt-get install -y coreutils
                 echo $FIREBASE_SA >> firebase-sa.json
-                realpath firebase-sa.json
-                echo "GOOGLE_APPLICATION_CREDENTIALS=firebase-sa.json" >> "$GITHUB_ENV"
+                echo "GOOGLE_APPLICATION_CREDENTIALS=$(realpath firebase-sa.json)" >> "$GITHUB_ENV"
               env:
                   FIREBASE_SA: ${{ secrets.FIREBASE_SA }}
             - name: Install dependencies
