@@ -31,7 +31,7 @@ jobs:
             - name: Exporting Secrets
               run: |
                   echo ${{ secrets.FIREBASE_SA }} >> firebase-sa.json
-                  export GOOGLE_APPLICATION_CREDENTIALS=$(realpath ./firebase-sa.json)
+                  export GOOGLE_APPLICATION_CREDENTIALS=$(readlink -f ./firebase-sa.json)
             - name: Install dependencies
               working-directory: ./github-actions
               run: npm install
