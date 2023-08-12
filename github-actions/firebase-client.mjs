@@ -1,5 +1,5 @@
 import { initializeApp, applicationDefault } from 'firebase-admin/app';
-import { getFirestore } from 'firebase-admin/firestore';
+import { getFirestore, collection } from 'firebase-admin/firestore';
 import ClearbitClient from "./clearbit-client.mjs"
 import _ from "lodash"
 
@@ -14,7 +14,7 @@ export default class FirebaseClient {
     }
 
     updateCompanyData = async (companyData) => {
-        const docRef = db.collection("companies").doc(companyData.id)
+        const docRef = collection(this.firestore, "companies").doc(companyData.id)
         const doc = await docRef.get()
         if(!doc.exists()){
             const clearbitData = this.clearbitClient.getCompanyInfo();
@@ -34,7 +34,7 @@ export default class FirebaseClient {
     }
 
     updateCompanyRoleData = async (roleData) => {
-        const docRef = db.collection("roles").doc(roleData.id)
+        const docRef = collection(this.firestore, "roles").doc(roleData.id)
         const doc = await docRef.get()
         if(doc.exists()){
             const compareResult = _.isEqual(
