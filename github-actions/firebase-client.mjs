@@ -1,5 +1,5 @@
 import { initializeApp, applicationDefault } from 'firebase-admin/app';
-import { getFirestore, collection } from 'firebase-admin/firestore';
+import { getFirestore } from 'firebase-admin/firestore';
 import ClearbitClient from "./clearbit-client.mjs"
 import _ from "lodash"
 
