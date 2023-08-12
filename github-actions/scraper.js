@@ -4,38 +4,27 @@ import { Timestamp, getFirestore } from 'firebase-admin/firestore'
 import GithubSlugger from 'github-slugger';
 import { marked } from 'marked';
 import { parse, isValid } from 'date-fns';
+import ClearbitClient from './clearbit-client'
+import FirebaseClient from './firebase-client';
 
 let serviceAccount = ""
-if (process.env.FIREBASE_SA) {
+if (process.env.FIREBASE_SA && process.env.CLEARBIT_SA) {
     serviceAccount = JSON.parse(process.env.FIREBASE_SA)
+    clearbitToken = JSON.parse(process.env.CLEARBIT_SA)
 } else {
     throw Error("Secrets not found")
 }
-initializeApp({
-    credential: cert(serviceAccount)
-})
-
-const db = getFirestore();
-
-const updateDb = async (companyData) => {
-    const docRef = db.collection("job-roles").doc(companyData.id);
-    await docRef.set(companyData);
-}
+const firebaseClient = FirebaseClient(serviceAccount, clearbitClient);
 
 const slugger = new GithubSlugger();
 
-axios.get("https://raw.githubusercontent.com/ReaVNaiL/New-Grad-2024/main/README.md")
-    .then((resp) => {
-        parseData(resp.data)
-    })
-
-const parseCompany = (cell) => {
+const parseCompany = async (cell) => {
     let companyData = null;
     cell.tokens.forEach(token => {
         if (token.type === 'link') {
             companyData = {
                 id: slugger.slug(token.text),
-                company: token.text,
+                name: token.text,
                 careerPage: token.href
             }
         }
@@ -78,15 +67,20 @@ const parseDatePosted = (cell) => {
     return Timestamp.now();
 }
 
-const parseTableRow = (rowData) => {
-    let companyData = parseCompany(rowData[0])
+const parseTableRow = async (rowData) => {
+    let companyData = await parseCompany(rowData[0])
     if (!companyData) return false
     companyData.location = parseLocation(rowData[1])
-    companyData.roles = parseRoles(rowData[2], companyData.id)
-    if (companyData.roles.length === 0) return false
     companyData.sponsorship = parseSponsorship(rowData[3])
-    companyData.datePosted = parseDatePosted(rowData[4])
-    return companyData
+    const companyId = firebaseClient.updateCompanyData(companyData)
+    const dateExtracted = parseDatePosted(rowData[4])
+    const roles = parseRoles(rowData[2], companyData.id)
+    if (companyData.roles.length === 0) return false
+    roles.forEach((roleData) => {
+        roleData.companyId = companyId
+        roleData.dateExtracted = dateExtracted
+        firebaseClient.updateCompanyRoleData(roleData)
+    })
 }
 
 
@@ -112,3 +106,8 @@ const parseData = (dataStr) => {
         dataStr.replace(/^[\u200B\u200C\u200D\u200E\u200F\uFEFF]/, "")
     );
 }
+
+axios.get("https://raw.githubusercontent.com/ReaVNaiL/New-Grad-2024/main/README.md")
+    .then((resp) => {
+        parseData(resp.data)
+    })

@@ -1,0 +1,17 @@
+{
+  "name": "github-actions",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Actions for Scraping Job Roles from https://github.com/ReaVNaiL/New-Grad-2024",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "axios": "^1.4.0",
+    "date-fns": "^2.30.0",
+    "firebase-admin": "^11.10.1",
+    "github-slugger": "^2.0.0",
+    "loadash": "^1.0.0",
+    "marked": "^7.0.2"
+  }
+}
