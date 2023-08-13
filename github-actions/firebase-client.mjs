@@ -17,7 +17,7 @@ export default class FirebaseClient {
         const docRef = this.firestore.collection("companies").doc(companyData.id)
         const doc = await docRef.get()
         if(!doc.exists){
-            const clearbitData = await this.clearbitClient.getCompanyInfo();
+            const clearbitData = await this.clearbitClient.getCompanyInfo(companyData.name);
             companyData.logo = ""
             companyData.domain = ""
             if(clearbitData.name){
