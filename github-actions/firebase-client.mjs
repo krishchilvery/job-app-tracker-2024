@@ -22,7 +22,7 @@ export default class FirebaseClient {
                 companyData.name = clearbitData.name || companyData.name
                 companyData.domain = clearbitData.domain || ""
                 companyData.logo = clearbitData.logo || ""
-                console.log(`Clearbit Fetch Successful for Company ${companyData.id}`)
+                console.log(`Clearbit Fetch Successful for Company ${companyData.id} - ${clearbitData}`)
             }else{
                 console.log(`Clearbit Fetch Failed for Company ${companyData.id}`)
             }
