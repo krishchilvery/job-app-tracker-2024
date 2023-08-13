@@ -26,9 +26,6 @@ export default class FirebaseClient {
             if(clearbitData){
                 companyData.domain = clearbitData.domain || ""
                 companyData.logo = clearbitData.logo || ""
-                console.log(`Clearbit Fetch Successful for Company ${companyData.id} - ${JSON.stringify(clearbitData)}`)
-            }else{
-                console.log(`Clearbit Fetch Failed for Company ${companyData.id}`)
             }
             await docRef.set(
                 companyData, {merge: true}

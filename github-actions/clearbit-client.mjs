@@ -23,12 +23,14 @@ export default class ClearbitClient {
                 }
             }
         ).then(resp => resp.data).then((data) => {
+            console.log(`Clearbit Fetch Successful for Company ${name} - ${JSON.stringify(data)}`)
             return {
                 name: data?.name || name,
                 domain: data?.domain || '',
                 logo: data?.domain || ''
             }
         }).catch((error) => {
+            console.log(`Clearbit Fetch Failed for Company ${name}`)
             console.log(error)
             return null
         })
