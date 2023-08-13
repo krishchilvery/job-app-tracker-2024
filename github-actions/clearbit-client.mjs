@@ -22,7 +22,7 @@ export default class ClearbitClient {
                     name : `${name}`
                 }
             }
-        ).then(resp => resp.json()).then((data) => {
+        ).then(resp => resp.data).then((data) => {
             return {
                 name: data?.name || name,
                 domain: data?.domain || '',

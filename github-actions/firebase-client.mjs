@@ -19,9 +19,9 @@ export default class FirebaseClient {
         if(!doc.exists){
             const clearbitData = this.clearbitClient.getCompanyInfo();
             if(clearbitData){
-                companyData.name = clearbitData.name
-                companyData.domain = clearbitData.domain
-                companyData.logo = clearbitData.logo
+                companyData.name = clearbitData.name || companyData.name
+                companyData.domain = clearbitData.domain || ""
+                companyData.logo = clearbitData.logo || ""
                 console.log(`Clearbit Fetch Successful for Company ${companyData.id}`)
             }else{
                 console.log(`Clearbit Fetch Failed for Company ${companyData.id}`)
