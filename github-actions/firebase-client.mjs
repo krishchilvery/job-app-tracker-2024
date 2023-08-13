@@ -29,6 +29,7 @@ export default class FirebaseClient {
             await docRef.set(
                 companyData, {merge: true}
             )
+            console.log(`Added Company ${companyData.name}`)
         }
         return companyData.id;
     }

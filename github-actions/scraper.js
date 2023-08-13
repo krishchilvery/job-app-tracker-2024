@@ -69,7 +69,7 @@ const parseTableRow = async (rowData) => {
     if (!companyData) return false
     companyData.location = parseLocation(rowData[1])
     companyData.sponsorship = parseSponsorship(rowData[3])
-    const companyId = firebaseClient.updateCompanyData(companyData)
+    const companyId = await firebaseClient.updateCompanyData(companyData)
     const dateExtracted = parseDatePosted(rowData[4])
     const roles = parseRoles(rowData[2], companyData.id)
     if (roles.length === 0) return false
