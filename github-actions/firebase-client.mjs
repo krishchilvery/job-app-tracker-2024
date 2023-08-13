@@ -20,10 +20,8 @@ export default class FirebaseClient {
             const clearbitData = await this.clearbitClient.getCompanyInfo(companyData.name);
             companyData.logo = ""
             companyData.domain = ""
-            if(clearbitData.name){
-                companyData.name = clearbitData.name
-            }
             if(clearbitData){
+                companyData.name = clearbitData.name || companyData.name
                 companyData.domain = clearbitData.domain || ""
                 companyData.logo = clearbitData.logo || ""
             }
